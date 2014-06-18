@@ -19,8 +19,12 @@ class ChatController
 
     console.log "init EventSource", @vent
 
+    $('form').on 'ajax:send', ->
+      $(@).find('input[type=text]').val('')
+
+
   _addChatMessage: (data)->
-    $('<div class="message"></div>').text(data.text).prependTo('#chat')
+    $('<div class="message"></div>').text("#{data.author}: #{data.text}").prependTo('#chat')
 
   _addSystemMessage: (data)->
     $('<div class="system-message"></div>').text(data.text).prependTo('#chat')

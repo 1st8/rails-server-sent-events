@@ -3,8 +3,10 @@ class Message
   include ActiveModel::Serializers::JSON
 
   define_attribute_method :text
+  define_attribute_method :author
 
   attr_accessor :text
+  attr_accessor :author
 
   def self.next_id
     @current_id = (@current_id || 0) + 1
@@ -12,6 +14,7 @@ class Message
 
   def initialize(attributes)
     self.text = attributes['text']
+    self.author = attributes[:author]
   end
 
   def id
@@ -19,7 +22,7 @@ class Message
   end
 
   def attributes
-    { 'text' => @text }
+    { 'text' => @text, 'author' => @author }
   end
 
   def save

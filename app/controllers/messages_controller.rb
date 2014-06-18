@@ -1,7 +1,7 @@
 class MessagesController < ApplicationController
 
   def create
-    message = Message.new(message_params)
+    message = Message.new(message_params.merge(author: request.remote_ip.split('.').last))
     if Chat.instance.append_message(message)
       render nothing: true, status: 201
     else
